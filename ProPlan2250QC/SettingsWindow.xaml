@@ -1,0 +1,124 @@
+﻿<Window x:Class="ProPlan2250QC.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProPlan2250QC"
+        xmlns:Printing="clr-namespace:System.Drawing.Printing;assembly=System.Drawing"
+        xmlns:st="clr-namespace:ProPlan2250QC"
+        mc:Ignorable="d"
+        Title="Ayarlar" Height="600" Width="773" ResizeMode="NoResize" WindowStyle="ToolWindow" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64*" />
+            <RowDefinition Height="79*" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Program Ayarları" Margin="10,10,317,0" Height="220" VerticalAlignment="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="270"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="txtDeviceIp" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Margin="0,5" />
+                <TextBox x:Name="txtMeasurementDuration" Text="{Binding MeasurementDuration}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Margin="0,5" />
+                <TextBox x:Name="txtPreDelayDuration" Text="{Binding PreDelayDuration}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" Margin="0,5" />
+                <TextBox x:Name="txtHighPass" Text="{Binding HighPassFrequency}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" Margin="0,5" />
+                <ComboBox x:Name="cmbAutoSave"  ItemsSource="{x:Static st:Settings.OnOff}" SelectedIndex="{Binding AutoSaveSelection}" HorizontalAlignment="Stretch" Grid.Row="4" Grid.Column="1" Margin="0,2" />
+                <ComboBox x:Name="cmbPrinterSelection" ItemsSource="{x:Static Printing:PrinterSettings.InstalledPrinters}" SelectedItem="{Binding SelectedPrinter}" Grid.Row="5" Grid.Column="1" Margin="0,2"/>
+                <ComboBox x:Name="cmbDisplayType"  ItemsSource="{x:Static st:Settings.DisplayTypes}" SelectedIndex="{Binding DisplayType}" HorizontalAlignment="Stretch" Grid.Row="6" Grid.Column="1" Margin="0,2" />
+                <Label Content="2250 IP adresi" Grid.Row="0" VerticalAlignment="Center" Height="26" Margin="0,4,0,3"/>
+                <Label Content="Ölçüm süresi [s]" Grid.Row="1" VerticalAlignment="Center" Height="26" Margin="0,3,0,4"/>
+                <Label Content="Gecikme süresi [ms]" Grid.Row="2" VerticalAlignment="Center" Height="26" Margin="0,4,0,3"/>
+                <Label Content="High-pass filtre frekansı [Hz]" Grid.Row="3" VerticalAlignment="Center" Height="26" Margin="0,3,0,4"/>
+                <Label Content="Otomatik kaydet" Grid.Row="4" VerticalAlignment="Center" Height="26" Margin="0,4,0,3"/>
+                <Label Content="Yazıcı" Grid.Row="5" VerticalAlignment="Center" Height="26" Margin="0,3,0,4"/>
+                <Label Content="Gösterge Tipi" Grid.Row="6" VerticalAlignment="Center" Height="26" Margin="0,3,0,4"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Header="Değerlendirme Kriterleri" Margin="10,0" Height="270" VerticalAlignment="top">
+            <Grid>
+                <ComboBox x:Name="cmbPresets" ItemsSource="{Binding Presets}" SelectedItem="{Binding SelectedPreset}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="425" Margin="10,10,0,0" Height="25"/>
+                <GroupBox x:Name="groupBox" Header="Tolerans Ayarları" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Height="148" Width="195">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="txtToleranceMinX" Text="{Binding ToleranceMinX}" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" />
+                        <TextBox x:Name="txtToleranceMaxX" Text="{Binding ToleranceMaxX}" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" />
+                        <TextBox x:Name="txtToleranceMinY" Text="{Binding ToleranceMinY}" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" />
+                        <TextBox x:Name="txtToleranceMaxY" Text="{Binding ToleranceMaxY}" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" />
+                        <Label Content="Alt Devir Hızı [rpm]" Grid.Row="0" VerticalAlignment="Center"/>
+                        <Label Content="Üst Devir Hızı [rpm]" Grid.Row="1" VerticalAlignment="Center"/>
+                        <Label Content="Alt Genlik [mm/s2]" Grid.Row="2" VerticalAlignment="Center"/>
+                        <Label Content="Üst Genlik [mm/s2]" Grid.Row="3" VerticalAlignment="Center"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox x:Name="groupBox2" Header="Değerlendirme" HorizontalAlignment="Left" Margin="210,40,0,0" VerticalAlignment="Top" Height="148" Width="227">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="txtSidebands" Text="{Binding SidebandWidth}" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" />
+                        <TextBox x:Name="txtDetectLo" Text="{Binding DetectLow}" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" />
+                        <TextBox x:Name="txtDetectHi" Text="{Binding DetectHigh}" HorizontalAlignment="Stretch" Height="23" TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" />
+                        <Label Content="Yan bant genişliği [rpm]" Grid.Row="0" VerticalAlignment="Center"/>
+                        <Label Content="Tespit Alt Frekans [rpm]" Grid.Row="1" VerticalAlignment="Center"/>
+                        <Label Content="Tespit Üst Frekans [rpm]" Grid.Row="2" VerticalAlignment="Center"/>
+                    </Grid>
+                </GroupBox>
+                <Button x:Name="btnNewEntry" Content="Yeni Kriter" HorizontalAlignment="Left" Margin="10,0,0,10" Width="96" Click="btnNewEntry_Click" Height="40" VerticalAlignment="Bottom" />
+                <Button x:Name="btnDeleteEntry" Content="Kriteri Sil" HorizontalAlignment="Left" Margin="120,0,0,10" Width="96" Height="40" VerticalAlignment="Bottom" Click="btnDeleteEntry_Click" />
+                <Button x:Name="btnCancel" Content="İptal" Margin="230,0,0,10" Height="40" VerticalAlignment="Bottom" Click="btnCancel_Click" HorizontalAlignment="Left" Width="96" />
+                <Button x:Name="btnSaveAndClose" Content="Kaydet &amp; Kapat" Margin="341,0,0,10" Click="btnSaveAndClose_Click" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="96"/>
+            </Grid>
+        </GroupBox>
+        <TextBox x:Name="txt1" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="0" Margin="610,30,22,200" />
+        <Label Content="Level100 Max" Grid.Row="0" VerticalAlignment="Center" Height="26" Margin="482,30,162,200"/>
+        <TextBox x:Name="txt2" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="0" Margin="610,61,22,169" />
+        <Label Content="RPM100 Max" Grid.Row="0" VerticalAlignment="Center" Height="26" Margin="482,61,162,169"/>
+        <TextBox x:Name="txt3" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="0" Margin="610,92,22,138" />
+        <Label Content="RPM100 Min" Grid.Row="0" VerticalAlignment="Center" Height="26" Margin="482,92,162,138"/>
+        <TextBox x:Name="txt4" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="0" Margin="610,123,22,107" />
+        <Label Content="RPM50 Max" Grid.Row="0" VerticalAlignment="Center" Height="26" Margin="482,123,162,107"/>
+        <TextBox x:Name="txt5" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="0" Margin="610,154,22,76" />
+        <Label Content="RPM50 Min" Grid.Row="0" VerticalAlignment="Center" Height="26" Margin="482,154,162,76"/>
+        <TextBox x:Name="txt6" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="0" Margin="610,185,22,45" />
+        <Label Content="level50 Max" Grid.Row="0" VerticalAlignment="Center" Height="26" Margin="482,185,162,45"/>
+        <TextBox x:Name="txt7" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="0" Margin="610,216,22,14" />
+        <Label Content="Watt100 Max" Grid.Row="0" VerticalAlignment="Center" Height="26" Margin="482,216,162,14"/>
+        <TextBox x:Name="txt8" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="0" Margin="610,247,22,299" Grid.RowSpan="2" />
+        <Label Content="Watt100 Min" Grid.Row="0" VerticalAlignment="Center" Height="26" Margin="482,247,162,299" Grid.RowSpan="2"/>
+        <TextBox x:Name="txt9" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="1" Margin="610,22,22,268" />
+        <Label Content="Watt50 Max" Grid.Row="1" VerticalAlignment="Center" Height="26" Margin="482,22,162,268"/>
+        <TextBox x:Name="txt10" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="1" Margin="610,53,22,237" />
+        <Label Content="Watt50 Min" Grid.Row="1" VerticalAlignment="Center" Height="26" Margin="482,53,162,237"/>
+        <TextBox x:Name="txt11" Text="{Binding DeviceIp}" HorizontalAlignment="Stretch" TextWrapping="Wrap" Grid.Row="1" Margin="610,84,22,206" />
+        <Label Content="Modbus Com:" Grid.Row="1" VerticalAlignment="Center" Height="26" Margin="482,84,162,206"/>
+
+
+    </Grid>
+</Window>
